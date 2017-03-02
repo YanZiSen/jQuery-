@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>jQuery对象</title>
+  <style>
+    .container {
+      height: 30px;
+      background-color: #Eae;
+    }
+
+    .highlight {
+      color: red;
+    }
+
+    .red {
+      background-color: red;
+      color: #f90;
+    }
+
+    .green {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+<p>Hello</p>
+
+<div class="container">
+  <span>Hello</span>
+</div>
+<div class="toggle" style="height:400px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusantium
+  beatae cumque dicta ducimus ea explicabo, hic, iusto laboriosam, modi nostrum praesentium rem rerum sapiente soluta
+  tempore voluptatem voluptates?
+</div>
+<!--<script src="node_modules/jquery/tmp/jquery.js"></script>-->
+<!--<script>
+  $('.container').click(function () {
+    $('span', this).toggleClass('highlight');
+  })
+  $('<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam blanditiis eligendi, facilis illum minus neque nihil ut. Alias architecto cumque deserunt ea esse et maxime molestiae, molestias, quibusdam quod rem.</p>').appendTo('body');
+  $('<div></div>',{
+    'class':'red',
+    text:'click me',
+    click:function(){
+      $(this).toggleClass('green');
+    }
+  }).appendTo('body');
+  $('.toggle').click(function(){
+    $(this).slideUp();
+  });
+
+</script>-->
+<script>
+  $=function(){};
+  $.extend = function () {
+    var target = arguments[0],
+        args = arguments;
+
+    function clone(target, args) {
+      var props;
+      for (var i = 0; i < args.length; i++) {
+        var arg = args[i];
+        for (key in arg) {
+          //如果是对象或者数组
+          if (typeof arg[key] === 'object') {
+            if (arg[key] instanceof Array) {
+              props = key in target ? target[key] : [];
+            } else {
+              props = key in target ? target[key] : {};
+            }
+            clone(props, arg[key]);
+            props = key;
+            target[props] = arg[key];
+          } else if (typeof arg[key] === 'function') {//函数
+            props = key;
+            target[props] = arg[key];
+          } else {
+            props = key;
+            target[props] = arg[key];
+          }
+        }
+        ;
+      }
+    }
+    if (typeof target === 'boolean') {
+      target = arguments[1];
+      console.log(arguments);
+      console.log(111);
+      if (args) {
+        clone(target,[].slice.call(arguments,2));
+      }
+    }
+  }
+  var a = {};
+  $.extend(true,a, {b: 1, name: 'hello'}, {c: 'nihao', d: {age: 45}});
+  console.log(a);
+</script>
+</body>
+</html>
