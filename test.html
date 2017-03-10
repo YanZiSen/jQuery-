@@ -29,10 +29,106 @@
 <div class="container">
   <span>Hello</span>
 </div>
-<div class="toggle" style="height:400px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusantium
+<div class="toggle" style="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusantium
   beatae cumque dicta ducimus ea explicabo, hic, iusto laboriosam, modi nostrum praesentium rem rerum sapiente soluta
   tempore voluptatem voluptates?
 </div>
+<ul>
+  <li>01</li>
+  <li>02</li>
+  <li>03</li>
+  <li>04</li>
+</ul>
+<ul>
+  <li>01</li>
+  <li>02</li>
+  <li>03</li>
+  <li>04</li>
+</ul>
+<div id="d1"></div>
+<!--<script src='jquery-2.0.3.js'></script>-->
+<script src='node_modules/jquery/dist/jquery.js'></script>
+<script>
+  $('p').data('name','hello');
+  console.log($('p').data('name'));
+  $(function () {
+    $('ul').on('click', 'li', {name: 'hello'}, function () {
+      $(this).css('background-color', 'red');
+    });
+//    $('ul li:first').css('background-color','green');
+    $('ul li:first-child').css('background-color', 'yellow');
+    $('#d1').css({
+      backgroundColor: 'red',
+      width: '200px',
+      height: '200px'
+    });
+  });
+  var defer=$.Deferred();
+  defer.done=function(){
+    count*=-1;
+  }
+  $('#d1').data('count',1);
+  $('#d1').on('click',function(){
+    $('#d1').data('count',$('#d1').data('count')*(-1));
+  });
+  $('#d1').on('click',function(){
+    var a;
+    if($('#d1').data('count')>0){
+      return;
+    }else{
+      if(parseInt(parseInt($(this).width()))>=400){
+        a='100px';
+      }else{
+        a='400px';
+      }
+      var css={
+        width:a ,
+        height:a
+      };
+    }
+    $(this).animate(css,1000,arguments.callee);
+  });
+  /*$('#d1').on('click',function(){
+    $(this).animate({width:'400px',height:'400px'},'slow',function(){
+        $(this).animate({width:'100px'},'slow',function(){
+        });
+    });
+  });*/
+ /* (function (document) {
+    var div = document.getElementById('d1');
+    div.onclick = function () {
+      div.dataset.count= div.dataset.count || 0;
+      if (div.dataset.count % 2===0) {
+        div.dataset.count = 1;
+        grow();
+      } else {
+        div.dataset.count = 0;
+        pause();
+      }
+    }
+    var timer;
+
+    function grow() {
+      var count = 1;
+      timer = setInterval(function () {
+        var width = parseInt(div.style.width),
+            height = parseInt(div.style.height);
+        width += 2 * count;
+        height += 2 * count;
+        if (width >400||width<100) {
+          count *= -1;
+        }
+        div.style.width = width + 'px';
+        div.style.height = height + 'px';
+      }, 40);
+    }
+    function pause(){
+      clearInterval(timer);
+      timer = null;
+    }
+  })(document)*/
+
+</script>
 <!--<script src="node_modules/jquery/tmp/jquery.js"></script>-->
 <!--<script>
   $('.container').click(function () {
@@ -51,7 +147,7 @@
   });
 
 </script>-->
-<script>
+<!--<script>
   $=function(){};
   $.extend = function () {
     var target = arguments[0],
@@ -95,6 +191,6 @@
   var a = {};
   $.extend(true,a, {b: 1, name: 'hello'}, {c: 'nihao', d: {age: 45}});
   console.log(a);
-</script>
+</script>-->
 </body>
 </html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+</head>
+<body>
+<p></p>
+<script>
+  (function(){
+    function extend(obj){
+      var other= [].slice.call(arguments,1);
+      if(!other){
+        return;
+      }
+      for(var i=0;i<other.length;i++){
+        var cloneObj=other[i];
+        for(var key in cloneObj){
+          if(typeof cloneObj[key]==='function'){
+            obj[key]=cloneObj[key];
+          }else if(typeof cloneObj[key]==='object'){
+            obj[key]=cloneObj[key] instanceof Object?{}:[];
+            extend(obj[key],cloneObj[key]);
+          }else{
+            obj[key]=cloneObj[key];
+          }
+        }
+      }
+    }
+    var Data=function(){
+      Object.defineProperty(this.cache={},0,{
+        get:function(){
+          return {};
+        }
+      });
+      this.expando='Data'+Math.random();
+    }
+    Data.uid=0;
+    Data.prototype={
+      key:function(elem){
+        var val=elem[this.expando],
+            descriptor={};
+        if(!val){
+//          val=Data.uid++;
+            val=++Data.uid;
+          try{
+//            descriptor={value:val};
+            descriptor[this.expando]={value:val};
+            Object.defineProperties(elem,descriptor);//此处不是很熟悉
+          }catch(e){
+            descriptor[this.expando]=val;
+            extend(elem,descriptor);
+          }
+        }
+        if(!this.cache[val]){
+          this.cache[val]={};
+        }
+        return val;
+      },
+      get:function(elem,key){
+        var val=this.key(elem),
+            cache=this.cache[val];
+        if(!key){
+          return this.cache[val];
+        }
+        if(cache){
+          return cache[key]?cache[key]:{};
+        }
+      },
+      set:function(elem,key,value){
+        var val=this.key(elem),
+            cache=this.cache[val];
+            console.log(cache);
+            cache[key]=value;
+      }
+    }
+    var data=new Data();
+    var p=document.getElementsByTagName('p')[0];
+    data.set(p,'name','hello');
+    console.log(data.get(p,'name'));
+    window.data=data;
+    var a={
+          b:0,
+          name:'hello',
+          go:function(){
+            alert('你好');
+          },
+          friends:['xiaoming','tiantain','linlin'],
+        };
+    var b={};
+    extend(b,a);
+    console.log(b);
+  })()
+</script>
+</body>
+</html>

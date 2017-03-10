@@ -4331,7 +4331,7 @@ jQuery.event = {
 			special, handlers, type, namespaces, origType,
 			elemData = data_priv.get( elem );
 
-		// Don't attach events to noData or text/comment nodes (but allow plain objects)
+		// Don't attach events to noData or text/comment nodes (but allow plain objects)空对象也为真,不走if
 		if ( !elemData ) {
 			return;
 		}
@@ -4812,13 +4812,13 @@ jQuery.event = {
 
 		// Support: Cordova 2.5 (WebKit) (#13255)
 		// All events should have a target; Cordova deviceready doesn't
-		if ( !event.target ) {
+		if ( !event.target ) {//针对移动端就绪状态做的处理 指定事件源
 			event.target = document;
 		}
 
 		// Support: Safari 6.0+, Chrome < 28
 		// Target should not be a text node (#504, #13143)
-		if ( event.target.nodeType === 3 ) {
+		if ( event.target.nodeType === 3 ) {//如果是文本节点 怎返回到父节点
 			event.target = event.target.parentNode;
 		}
 

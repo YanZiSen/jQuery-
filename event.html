@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id='d1'>
+  <span id='s1'>span</span>
+</div>
+<script>
+  var d1=document.getElementById('d1'),
+      s1=document.getElementById('s1');
+  d1.onclick=function(event){
+    var event=event||window.event,
+        target=event.target||event.srcElement;
+    alert(1);
+  }
+  s1.onclick=function(event){
+    event.stopPropagation();
+    alert(2);
+  }
+  /*document.addEventListener(
+      'mousedown',
+      function(event){
+        alert(event.which);
+      },
+      false
+  );//注意mousedown咸鱼click触发*/
+</script>
+</body>
+</html>

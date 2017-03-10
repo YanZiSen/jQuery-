@@ -52,3 +52,19 @@ attr删不掉
   将有问题属性放在数组中 然后将修正后的值与之对应关联 利用或操作符进行兼容性操作
   空格转布尔为真
   &&的优先级要高于或的  option与select的type的兼容处理
+
+
+事件操作
+  on one只绑定一次在on中的处理
+  $().trigger 触发 主要用于自定义事件 跟函数有区别
+  trigger简历映射关系的方法;   //不要设置dataset是自动转为字符串
+  事件的命名空间
+  事件缓存中的 needContect针对的伪类事件 origitype和type的区别 一个是原始的 一个是处理兼容后的
+  return false既阻止了冒泡 也阻止了默认行为(jquery中)
+
+  pageY和clientY的差距 pageY是到页面的距离 clientY是到可是区的距离
+  event.which 获得鼠标或者键盘的键值 IE 8不支持 （用keyCode来做兼容）jquery一步步降级进行兼容性的处理 witch charCode keyCode
+  用onmousedown/onmouseup来代替鼠标左中右键的不同值 另一方面也阻止了默认行为 36.html //mousedown要比click先触发
+  jquery中的event是指的自身修改的
+  special对focus,blur进行的处理
+  给父元素绑定onmouseout和onmousemove的问题 进入子元素是触发两次  enter与leave解决 41.html
