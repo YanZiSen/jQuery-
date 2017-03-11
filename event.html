@@ -20,6 +20,9 @@
     event.stopPropagation();
     alert(2);
   }
+  window.onbeforeunload=function(){
+    return 'hello'
+  }
   /*document.addEventListener(
       'mousedown',
       function(event){
