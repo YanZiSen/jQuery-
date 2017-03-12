@@ -75,6 +75,21 @@
   * onbeforeunload事件 提示
   * trigger模拟冒泡操作的方法
 
-DOM操作
+DOM操作 *5129* *43.html*
   * [^:#\.\[]除了: # . [
   * filter() not()在自身当中进行筛选 has()在子项中进行筛选
+      * 调用的工具方法$.filter 分支的作用简单的加:not伪类进行控制开关 都结合运用了jquery.find进行元素查找 及sizzle;最后复杂的调用是复杂用grep进行过滤
+  * index()查找元素在指定集合中的位置 $('#div1').index() $('span').index($('#span1')) $('#span').index('span')
+    &nbsp; <pre>
+    index:function (elem){
+      if (!elem){
+        return (this\[0]\&&this\[0].parentNode)?this.first().prevAll().length:-1;
+      }
+      if(typeof elem==='string'){
+        return [].indexOf.call(jQuery(elem),this\[0]);
+      }
+      <--return elem.jquery?[].indexOf.call(elem,this\[0]):elem;-->
+      return [].indexOf.call(this,elem.jquery?elem\[0]:elem);
+    }
+    </pre>
+  * .closest()查找满足条件的最近的祖先节点(包括自己) rneedsContext？？

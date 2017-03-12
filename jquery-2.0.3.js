@@ -86,7 +86,7 @@ var
 		return letter.toUpperCase();
 	},
 
-	// The ready event handler and self cleanup method
+	// The ready event handler and self cleanup method1
 	completed = function() {
 		document.removeEventListener( "DOMContentLoaded", completed, false );
 		window.removeEventListener( "load", completed, false );
@@ -5399,7 +5399,7 @@ function winnow( elements, qualifier, not ) {
 
 	if ( typeof qualifier === "string" ) {
 		if ( isSimple.test( qualifier ) ) {
-			return jQuery.filter( qualifier, elements, not );
+			return jQuery.filter( qualifier, elements, not );//简单的加：not伪类实现
 		}
 
 		qualifier = jQuery.filter( qualifier, elements );

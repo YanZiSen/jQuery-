@@ -1,7 +1,7 @@
 * jquery 构造器中传入window对象的原因 不用退回顶级作用域 更快访问window对象 代码压缩；
 * 自执行函数防止全局污染 不与其他库冲突；
 * 传入undefined是为了防止undefined被改变，外界修改undefined的值；
-* 不要省略自执行函数在开头与结尾的分号；
+* 不要省略自执行函数在开头与结尾的分号；防止前面或者后面的未知作为函数调用而报错;
 * jquery后面构造函数中的new 为了不让jQuery前面有new并且还要有继承 所以return后面加了new 函数的执行结果是一个对象,侧面曲折实现链式调用；
 * jQuery.fn就是jQuery.prototype 为了省略字符；
 <pre>
@@ -11,13 +11,13 @@
   Jquery.prototype.init=function(){};
   jQuery.prototype.css=functioin(){};
   Jquery.prototype.init.prototype=jquery.prototype;//省略new的方式
-  对象字面量的方式需要手动修复constructor;
+  对象字面量的方式重写原型后如果需要用到constauctor需要手动修复constructor,否则为Object;
 </pre>
-* XSS攻击；
-* rootjQuery = jQuery(document);为了防止压缩；
+* XSS攻击??；
+* rootjQuery = jQuery(document);为了更好进行压缩；
 * var a=a+10//不好维护 var speed=10；a+speed;
-* 老版本的IE判断undefined用typeof x.m=='undefined';
-* _jquery和_s是防止冲突的方法 定义在开头 不冲突是undefined等于做了标记；
+* 老版本的IE判断undefined用typeof obj.attr=='undefined';
+* _jquery和_s是实现防止冲突的作用 定义在开头 不冲突是undefined等于做了标记；
 * class2type 类型判断；
 <pre>
     Object.prototype.tostring.call() [object A*]比较靠谱 class2type属性挂载
@@ -42,7 +42,7 @@
       .first() .last() .eq() 前两个调用的第三个方法 第三个调用了pushStack方法
       .map .each
 * **jquery中使用的是拷贝继承 其他还有类式继承（new+Function） 原型继承；**
-* jquery继承方法 （方法写在函数后面则指的是函数的静态方法）；
+* jquery继承方法 （方法写在函数后面则指的是函数的静态方法）；*285~347*
     * $.extend() 的三种用法 $.extend({}) $.fn.extend({})
     * $.extend({},{},{},{}) 将后面的对象合并到前一个上
     * $.extend(true,{},{}) 深考备
@@ -85,10 +85,10 @@ if(document.readyState==='complete'){
     }
 </pre>
 * 兼容
-  * ms 前缀Ms css属性；
+  * ms 前缀要改为Ms css属性；
   * 利用 || 修正函数的参数的问题；
   * 转小写的作用 不同浏览器下nodeName有时是小写 有时是大写；
-  * \w中指的是数字字母和下划线 不包括其他符号 （？！）反前向声明,不包含在分组中；
+  * **\w中指的是数字字母和下划线 不包括其他符号 （？！）反前向声明,不包含在分组中**；
   * IE9以下的浏览器中不能序列化标签link script 及用innerHTML不能转化　解决方式是包一层div　p51页
                 使用document.createElement()教会浏览器正确的使用HTML5标签
                 document.createDocumentFragment()在文档中存在,并且没有挂载在DOM树上
