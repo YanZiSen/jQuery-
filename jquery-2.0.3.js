@@ -4332,7 +4332,7 @@ jQuery.event = {
 			elemData = data_priv.get( elem );
 
 		// Don't attach events to noData or text/comment nodes (but allow plain objects)空对象也为真,不走if
-		if ( !elemData ) {
+		if ( !elemData ) {//防止文本节点和注释节点
 			return;
 		}
 
@@ -5310,10 +5310,10 @@ jQuery.each({
 		return elem.contentDocument || jQuery.merge( [], elem.childNodes );
 	}
 }, function( name, fn ) {
-	jQuery.fn[ name ] = function( until, selector ) {
-		var matched = jQuery.map( this, fn, until );
+	jQuery.fn[ name ] = function( until, selector ) {//截止不被包含
+		var matched = jQuery.map( this, fn, until );//在this上调用fn返回符合的数组 fn(this[i],i,args)
 
-		if ( name.slice( -5 ) !== "Until" ) {
+		if ( name.slice( -5 ) !== "Until" ) {//name没有until的话
 			selector = until;
 		}
 
@@ -5544,7 +5544,7 @@ jQuery.fn.extend({
 
 			// See if we can take a shortcut and just use innerHTML
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
-				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
+				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {//进行的兼容性操作,script/style/link tr等必须有父级的标签
 
 				value = value.replace( rxhtmlTag, "<$1></$2>" );
 
@@ -6650,7 +6650,7 @@ jQuery.fn.extend({
 					jQuery.map( val, function( val ){
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					}) :
-					{ name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+					{ name: elem.name, value: val.replace( rCRLF, "\r\n" ) };//为了兼容老浏览器使后台更清晰
 		}).get();
 	}
 });
@@ -8754,7 +8754,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name }, function( defaultExtra, funcName ) {
 		// margin is only for outerHeight, outerWidth
 		jQuery.fn[ funcName ] = function( margin, value ) {
-			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
+			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),//是否设置
 				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
 
 			return jQuery.access( this, function( elem, type, value ) {

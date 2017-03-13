@@ -8,6 +8,11 @@
 <div id='d1'>
   <span id='s1'>span</span>
 </div>
+<h2>event属性测试</h2>
+<hr/>
+<div id='event-parent' style='height:300px;width:300px;background-color:#afa;'>
+  <div id='event-child' style='height:150px;width:150px;background-color:#efe;'></div>
+</div>
 <script>
   var d1=document.getElementById('d1'),
       s1=document.getElementById('s1');
@@ -22,6 +27,19 @@
   }
   window.onbeforeunload=function(){
     return 'hello'
+  }
+  var eventParent=document.getElementById('event-parent');
+  eventParent.onmouseover=function(event){
+    event=event||window.event;
+    console.log(event);
+    console.log(event.relatedTarget);
+//    console.log(event.handleObj);
+  }
+  eventParent.onmouseleave=function(event){
+    event=event||window.event;
+    console.log(event.relatedTarget);
+//    console.log(event.handleObj);
+
   }
   /*document.addEventListener(
       'mousedown',
